@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'app1',
+    'app2',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    # 配置全局的渲染器
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',  # json
+        'rest_framework.renderers.BrowsableAPIRenderer',  # 浏览器可视化的API
+    ],
+    # 配置全局的解析器
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',  # json解析器
+        'rest_framework.parsers.FormParser',  # www-url-encode
+        'rest_framework.parsers.MultiPartParser'  # 表单解析 formdata
+    ],
+    # 默认的全局异常的处理方法
+    # 'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
+    # 使用自定义异常
+    'EXCEPTION_HANDLER': 'utils.exceptions.exception_handler',
+}
